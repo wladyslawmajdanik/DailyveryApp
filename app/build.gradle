@@ -8,15 +8,8 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     buildTypes.each {
-        it.buildConfigField 'String', 'INTERCOM_API_KEY', keystoreProperties['IntercomApiKey']
-        it.buildConfigField 'String', 'INTERCOM_APP_ID', keystoreProperties['IntercomAppId']
         it.buildConfigField 'String', 'BASE_URL', keystoreProperties['BaseUrl']
-        it.buildConfigField 'String', 'BASE_URL_DEBUG', keystoreProperties['BaseUrlDebug']
-        it.buildConfigField 'String', 'SUM_UP_KEY', keystoreProperties['SumUp']
-        it.buildConfigField 'String', 'SUM_UP_KEY_DEBUG', keystoreProperties['SumUpDebug']
-        it.buildConfigField 'String', 'MAP_BOX_KEY', keystoreProperties['MapBox']
-        it.buildConfigField 'String', 'MINT_RELEASE', keystoreProperties['MintRelease']
-        it.buildConfigField 'String', 'MINT_DEBUG', keystoreProperties['MintDebug']
+
     }
     signingConfigs {
         production {
@@ -27,12 +20,12 @@ android {
         }
     }
 
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "pl.dailyveryapp"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -103,12 +96,6 @@ def readKeystorePropertiesDev() {
     def propsFile = rootProject.file('keystore.properties')
     def configName = 'dev'
     if (propsFile.exists() && android.signingConfigs.hasProperty(configName)) {
-        /*  def props = new Properties()
-          props.load(new FileInputStream(propsFile))
-          android.signingConfigs[configName].storeFile = file(props['StoreFile'])
-          android.signingConfigs[configName].storePassword = props['StorePassword']
-          android.signingConfigs[configName].keyAlias = props['KeyAlias']
-          android.signingConfigs[configName].keyPassword = props['KeyPassword']*/
         println "===== read keystore properties success ====="
     }
 }
@@ -137,37 +124,18 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.3'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile('com.github.ihsanbal:LoggingInterceptor:2.0.0') {
         exclude group: 'org.json', module: 'json'
     }
     compile 'com.infstory:proguard-snippets:1.0.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support:cardview-v7:26.1.0'
+    compile 'com.android.support:recyclerview-v7:27.1.0'
+    compile 'com.android.support:appcompat-v7:27.1.0'
+    compile 'com.android.support:design:27.1.0'
+    compile 'com.android.support:cardview-v7:27.1.0'
 
-    compile('com.google.android.gms:play-services-maps:11.2.0') {
-        exclude group: 'com.android.support'
-        exclude group: 'com.google.android.gms'
-    }
-    compile('com.google.maps.android:android-maps-utils:0.5+')
-            {
-                exclude group: 'com.android.support'
-                exclude group: 'com.google.android.gms'
-            }
-    compile('com.google.android.gms:play-services-location:11.2.0') {
-        exclude group: 'com.android.support'
-    }
-    compile ('de.hdodenhof:circleimageview:2.2.0') {
-        exclude group: 'com.android.support'
-    }
-
-    compile('com.mapbox.mapboxsdk:mapbox-android-sdk:5.1.4@aar') { transitive = true }
-    compile ('com.mapbox.mapboxsdk:mapbox-android-navigation:0.6.3'){ transitive = true }
-    compile('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.6.3') { transitive = true }
 
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.8'
@@ -177,10 +145,6 @@ dependencies {
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     compile 'com.google.code.gson:gson:2.8.2'
-
-    compile('com.frosquivel:magicalcamera:5.0.5@aar') {
-        transitive = false
-    }
 
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
@@ -194,14 +158,11 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
     compile 'com.jakewharton.timber:timber:4.6.0'
-
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     compile 'com.uphyca:stetho_realm:2.1.0'
-
-    compile('com.sumup:merchant-sdk:2.4.1@aar') {
-        transitive = true
-    }
+    compile 'com.github.bumptech.glide:glide:4.6.1'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.7'
 
     provided "org.projectlombok:lombok:1.16.18" // keep
     annotationProcessor "org.projectlombok:lombok:1.16.18"
@@ -213,10 +174,6 @@ dependencies {
         }
     }
 
-    compile 'me.grantland:autofittextview:0.2.1'
-    compile 'com.github.bumptech.glide:glide:4.6.1'
-    compile 'com.afollestad.material-dialogs:core:0.9.4.7'
-    compile 'com.ebanx:swipe-button:0.8.3'
 }
 
 configurations.all {
