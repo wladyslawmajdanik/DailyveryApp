@@ -3,7 +3,9 @@ package pl.dailyveryapp;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+
 import com.facebook.stetho.Stetho;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import pl.dailyveryapp.injection.components.AppComponent;
@@ -15,11 +17,11 @@ import pl.dailyveryapp.injection.modules.RealmModule;
 import pl.dailyveryapp.utils.Constants;
 
 
-
 public class DailyveryApplication extends MultiDexApplication {
 
     private static DailyveryApplication instance;
     private AppComponent component;
+
     public DailyveryApplication() {
         instance = this;
     }
@@ -51,8 +53,6 @@ public class DailyveryApplication extends MultiDexApplication {
     }
 
 
-
-
     public AppComponent getComponent() {
         return component;
     }
@@ -62,7 +62,6 @@ public class DailyveryApplication extends MultiDexApplication {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-
 
 
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DailyveryApp</string>
+    <string name="prosze_czekac">Proszę czekać</string>
+    <string name="brak_dostepu_do_internetu">Nie możemy nawiązać połączenia z Internetem</string>
+    <string name="wystapil_blad">Wystąpił błąd przepraszamy</string>
+
 </resources>

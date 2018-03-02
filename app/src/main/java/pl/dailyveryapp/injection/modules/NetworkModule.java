@@ -77,11 +77,11 @@ public class NetworkModule {
     @AppScope
     @Named("dailyveryapi")
     public Retrofit provideDailyeryRetrofit(Gson gson, OkHttpClient okHttpClient) {
-        return new  Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl(dailyveryBaseUrl)
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
 
