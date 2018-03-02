@@ -8,4 +8,6 @@ public interface LocalRepository {
     void checkProducts(List<Products> productList);
 
     void changeBasket(Products products);
+
+    void removeBasket();
 }

@@ -9,7 +9,6 @@
 
     </style>
 
-
     <style name="TextViewStyle" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/textColor</item>

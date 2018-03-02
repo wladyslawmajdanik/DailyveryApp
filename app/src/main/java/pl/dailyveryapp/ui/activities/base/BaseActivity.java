@@ -11,33 +11,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-
-import javax.inject.Inject;
-
 import pl.dailyveryapp.DailyveryApplication;
 import pl.dailyveryapp.R;
 import timber.log.Timber;
 
-public class BaseActivity extends AppCompatActivity implements BaseView {
-    @Inject
-    public BasePresenter basePresenter;
+public class BaseActivity extends AppCompatActivity implements pl.dailyveryapp.ui.View {
+
     public MaterialDialog waitDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((DailyveryApplication) getApplication()).getComponent().inject(this);
-        basePresenter.setView(this);
+        buildWaitDialog();
 
-        waitDialog = new MaterialDialog.Builder(this)
-                .title(getResources().getString(R.string.prosze_czekac))
-                .progress(true, 0)
-                .progressIndeterminateStyle(true)
-                .widgetColorRes(R.color.colorPrimary)
-                .cancelable(true)
-                .canceledOnTouchOutside(false)
-                .cancelListener(dialogInterface -> finish())
-                .build();
     }
 
     @Override
@@ -60,6 +46,18 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private void buildWaitDialog()
+    {
+        waitDialog = new MaterialDialog.Builder(this)
+                .title(getResources().getString(R.string.prosze_czekac))
+                .progress(true, 0)
+                .progressIndeterminateStyle(true)
+                .widgetColorRes(R.color.colorPrimary)
+                .cancelable(true)
+                .canceledOnTouchOutside(false)
+                .cancelListener(dialogInterface -> finish())
+                .build();
     }
 
     protected void showErrorSnackBar(View view, String message) {

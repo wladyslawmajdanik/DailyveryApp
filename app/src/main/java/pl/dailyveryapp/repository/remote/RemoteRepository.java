@@ -19,9 +19,9 @@ public interface RemoteRepository {
 
     @FormUrlEncoded
     @POST("products")
-    Observable<ProductsResponse> getProducts(@Field("id") int restaurantId);
+    Observable<ProductsResponse> getProducts(@Field("restaurant_id") int restaurantId);
 
     @FormUrlEncoded
     @POST("order")
-    Observable<SimpleResponse> saveOrder(@Field("id") int restaurantId, @Field("products") JSONArray productsArray);
+    Observable<SimpleResponse> orderProducts(@Field("restaurant_id") int restaurantId, @Field("products") JSONArray productsArray);
 }

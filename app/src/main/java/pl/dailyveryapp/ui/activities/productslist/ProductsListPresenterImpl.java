@@ -1,12 +1,15 @@
 package pl.dailyveryapp.ui.activities.productslist;
 
 
+import org.json.JSONArray;
+
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import pl.dailyveryapp.model.SimpleResponse;
 import pl.dailyveryapp.model.products.Products;
 import pl.dailyveryapp.model.products.ProductsResponse;
 import pl.dailyveryapp.repository.local.LocalRepository;
@@ -17,8 +20,8 @@ import timber.log.Timber;
 public class ProductsListPresenterImpl implements ProductsListPresenter, Presenter {
 
 
-    RemoteRepository remoteRepository;
-    LocalRepository localRepository;
+    private RemoteRepository remoteRepository;
+    private LocalRepository localRepository;
     private ProductsListView view;
     private CompositeDisposable disposable;
 
@@ -58,9 +61,29 @@ public class ProductsListPresenterImpl implements ProductsListPresenter, Present
                 .subscribe(this::onGetProductsSuccess, this::onGetProductsError));
     }
 
+
+    @Override
+    public void orderProducts(int restaurantId, JSONArray productsToOrder) {
+        disposable.add(orderProductsObservable(restaurantId, productsToOrder)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onMakeOrderSuccess, this::onMakeOrderError));
+    }
+
+    @Override
+    public void removeBasket() {
+        localRepository.removeBasket();
+    }
+
     private Observable<ProductsResponse> getProductsObservable(int restaurantId) {
         return remoteRepository.getProducts(restaurantId)
                 .subscribeOn(Schedulers.io());
+    }
+
+    private Observable<SimpleResponse> orderProductsObservable(int restaurantId, JSONArray productsToOrder) {
+        return remoteRepository.orderProducts(restaurantId, productsToOrder)
+                .subscribeOn(Schedulers.io());
+
     }
 
     private void onGetProductsSuccess(ProductsResponse productsResponse) {
@@ -68,7 +91,17 @@ public class ProductsListPresenterImpl implements ProductsListPresenter, Present
     }
 
     private void onGetProductsError(Throwable throwable) {
-        view.onErroDownloadProductList();
+        view.onErrorDownloadProductList();
+        Timber.e(throwable);
+
+    }
+
+    private void onMakeOrderSuccess(SimpleResponse simpleResponse) {
+        view.onMakeOrderSuccess();
+    }
+
+    private void onMakeOrderError(Throwable throwable) {
+        view.onMakeOrderError();
         Timber.e(throwable);
 
     }

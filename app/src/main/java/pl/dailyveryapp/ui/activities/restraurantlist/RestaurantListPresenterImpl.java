@@ -13,7 +13,7 @@ import timber.log.Timber;
 public class RestaurantListPresenterImpl implements RestaurantListPresenter, Presenter {
 
 
-    RemoteRepository remoteRepository;
+    private RemoteRepository remoteRepository;
     private RestaurantListView view;
     private CompositeDisposable disposable;
 
@@ -52,7 +52,7 @@ public class RestaurantListPresenterImpl implements RestaurantListPresenter, Pre
     }
 
     private void onGetRestaurantError(Throwable throwable) {
-        view.onErroDownloadRestaurantList();
+        view.onErrorDownloadRestaurantList();
         Timber.e(throwable);
     }
 

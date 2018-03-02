@@ -44,7 +44,7 @@ public class RestaurantListActivity extends BaseActivity implements RestaurantLi
     }
 
     @Override
-    public void onErroDownloadRestaurantList() {
+    public void onErrorDownloadRestaurantList() {
         showError(restaurantListCointainer);
         hideWaitDialog();
     }

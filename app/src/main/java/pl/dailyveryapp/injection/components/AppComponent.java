@@ -18,11 +18,8 @@ import pl.dailyveryapp.ui.activities.restraurantlist.RestaurantListActivity;
 @Component(modules = {AppModule.class, NetworkModule.class, RealmModule.class, ContextModule.class})
 public interface AppComponent {
 
-    RemoteRepository getRemoteRepository();
 
     void inject(LocalRepositoryImpl localRepository);
-
-    void inject(BaseActivity baseActivity);
 
     void inject(RestaurantListActivity restaurantListActivity);
 

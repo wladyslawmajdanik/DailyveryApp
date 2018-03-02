@@ -3,5 +3,8 @@
     <string name="prosze_czekac">Proszę czekać</string>
     <string name="brak_dostepu_do_internetu">Nie możemy nawiązać połączenia z Internetem</string>
     <string name="wystapil_blad">Wystąpił błąd przepraszamy</string>
-
+    <string name="twoje_zamowinie_zostalo_wyslane">Twoje zamówienie zostało wysłane</string>
+    <string name="ok">OK</string>
+    <string name="gratulacje">Gratulacje</string>
+    <string name="zamow">Zamów</string>
 </resources>

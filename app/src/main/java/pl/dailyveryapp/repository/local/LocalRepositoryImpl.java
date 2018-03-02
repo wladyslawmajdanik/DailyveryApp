@@ -36,13 +36,20 @@ public class LocalRepositoryImpl implements LocalRepository {
         RealmResults<Products> getProductInBasket = realm.where(Products.class).findAll();
         for (int a = 0; a < productList.size(); a++) {
             for (int b = 0; b < getProductInBasket.size(); b++) {
-
                 if (getProductInBasket.get(b).getId().intValue() == productList.get(a).getId().intValue()) {
                     productList.get(a).setProductsInBasket(getProductInBasket.get(b).getProductsInBasket());
                 }
             }
         }
+    }
 
+    @Override
+    public void removeBasket() {
+        getRealmInstance();
+        realm.executeTransaction(realm -> {
+            realm.where(Products.class).findAll().deleteAllFromRealm();
+
+        });
 
     }
 }
